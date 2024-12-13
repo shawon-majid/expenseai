@@ -105,11 +105,12 @@ export default function DashboardPage() {
             <div className="bg-card rounded-lg p-6">
               <h2 className="mb-4 text-lg font-semibold">Quick Tips</h2>
               <div className="space-y-3 text-sm text-muted-foreground">
-                <p>• Use natural language like "Spent $25 on lunch today"</p>
-                <p>• Include dates: "Paid $50 for gas yesterday"</p>
-                <p>• Specify categories: "$100 for monthly internet bill"</p>
+                <p>• Use natural language like &quot;Spent $25 on lunch today&quot;</p>
+                <p>• Include dates: &quot;Paid $50 for gas yesterday&quot;</p>
+                <p>• Specify categories: &quot;$100 for monthly internet bill&quot;</p>
                 <p>• Update expenses by clicking the edit button</p>
               </div>
+
             </div>
           </div>
 

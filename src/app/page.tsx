@@ -56,7 +56,7 @@ export default function Home() {
                 <div className="space-y-2">
                   <h3 className="font-bold">Natural Language Input</h3>
                   <p className="text-sm text-muted-foreground">
-                    Input expenses naturally, just like you'd tell a friend
+                    Input expenses naturally, just like you&apos;d tell a friend
                   </p>
                 </div>
               </div>

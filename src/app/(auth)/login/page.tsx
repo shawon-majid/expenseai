@@ -45,7 +45,7 @@ export default function LoginPage() {
             <blockquote className="space-y-2">
               <p className="relative text-lg">
                 <span className="absolute -left-2 -top-2 text-white/20 text-4xl">&ldquo;</span>
-                Since using Expense AI, I've saved over 20% on my monthly expenses. The insights are incredible!
+                Since using Expense AI, I&apos;ve saved over 20% on my monthly expenses. The insights are incredible!
                 <span className="absolute -bottom-4 right-0 text-white/20 text-4xl">&rdquo;</span>
               </p>
               <div className="flex items-center gap-4 pt-4">
