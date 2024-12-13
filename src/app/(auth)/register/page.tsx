@@ -9,62 +9,23 @@ export default function RegisterPage() {
         <AuthIllustration />
         <div className="relative z-20 flex items-center text-lg font-medium">
           <Link href="/" className="flex items-center space-x-2">
-            <Image 
-              src="/logo.svg" 
-              alt="Expense AI Logo" 
-              width={32} 
-              height={32} 
-              className="w-8 h-8 text-white"
+            <Image
+              src="/logo.svg"
+              alt="Expense AI Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8"
             />
             <span>Expense AI</span>
           </Link>
         </div>
-        
-        <div className="relative z-20 mt-auto flex flex-col gap-6">
-          <div className="space-y-4">
-            <h3 className="font-bold text-xl bg-gradient-to-r from-white/80 to-white bg-clip-text text-transparent">
-              Smart Expense Tracking
-            </h3>
-            <ul className="grid gap-2 text-sm">
-              <li className="flex items-center gap-2">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary/80" />
-                <span className="text-white/80">Natural language input</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary/80" />
-                <span className="text-white/80">AI-powered categorization</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary/80" />
-                <span className="text-white/80">Real-time insights</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="rounded-lg border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <blockquote className="space-y-2">
-              <p className="relative text-lg">
-                <span className="absolute -left-2 -top-2 text-white/20 text-4xl">&ldquo;</span>
-                This app has completely transformed how I track my expenses. The AI makes it so simple and intuitive!
-                <span className="absolute -bottom-4 right-0 text-white/20 text-4xl">&rdquo;</span>
-              </p>
-              <div className="flex items-center gap-4 pt-4">
-                <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-lg font-semibold">
-                  SD
-                </div>
-                <div>
-                  <div className="font-semibold">Sofia Davis</div>
-                  <div className="text-sm text-white/60">Financial Analyst</div>
-                </div>
-              </div>
-            </blockquote>
-          </div>
-
-          <div className="flex items-center gap-2 text-sm text-white/40">
-            <div className="h-px flex-1 bg-white/10" />
-            Trusted by thousands of users worldwide
-            <div className="h-px flex-1 bg-white/10" />
-          </div>
+        <div className="relative z-20 mt-auto">
+          <blockquote className="space-y-2">
+            <p className="text-lg">
+              &ldquo;This app has completely transformed how I track my expenses. The AI makes it so simple and intuitive!&rdquo;
+            </p>
+            <footer className="text-sm">Sofia Davis, Financial Analyst</footer>
+          </blockquote>
         </div>
       </div>
       <div className="lg:p-8">
@@ -119,9 +80,12 @@ export default function RegisterPage() {
                     autoCorrect="off"
                   />
                 </div>
-                <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
-                  Create Account
-                </button>
+                <Link href={"/dashboard"} passHref>
+                  <button className="w-full h-10 flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+                    Create Account
+                  </button>
+                </Link>
+
               </div>
             </form>
             <div className="relative">
@@ -133,11 +97,11 @@ export default function RegisterPage() {
               </div>
             </div>
             <button className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
-              <Image 
-                src="/google.svg" 
-                alt="Google" 
-                width={16} 
-                height={16} 
+              <Image
+                src="/google.svg"
+                alt="Google"
+                width={16}
+                height={16}
                 className="mr-2 h-4 w-4"
               />
               Google

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Edit2, Trash2, X, Check, Search, ArrowUpDown } from "lucide-react";
+import { Edit2, Trash2, X, Check, Search, ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Expense } from "@/lib/expense/process-expense";
+import Link from "next/link";
 
 interface ExpenseTableProps {
   expenses: Expense[];
@@ -13,6 +14,8 @@ interface ExpenseTableProps {
 type SortField = "date" | "amount" | "category";
 type SortOrder = "asc" | "desc";
 
+const ITEMS_PER_PAGE = 3;
+
 export function ExpenseTable({ expenses, onDelete, onUpdate }: ExpenseTableProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [updateText, setUpdateText] = useState("");
@@ -20,10 +23,11 @@ export function ExpenseTable({ expenses, onDelete, onUpdate }: ExpenseTableProps
   const [searchQuery, setSearchQuery] = useState("");
   const [sortField, setSortField] = useState<SortField>("date");
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleUpdate = async (id: string) => {
     if (!updateText.trim() || isUpdating) return;
-    
+
     setIsUpdating(true);
     try {
       await onUpdate(id, updateText);
@@ -41,6 +45,7 @@ export function ExpenseTable({ expenses, onDelete, onUpdate }: ExpenseTableProps
       setSortField(field);
       setSortOrder("asc");
     }
+    setCurrentPage(1); // Reset to first page when sorting
   };
 
   const filteredAndSortedExpenses = useMemo(() => {
@@ -63,7 +68,7 @@ export function ExpenseTable({ expenses, onDelete, onUpdate }: ExpenseTableProps
       let comparison = 0;
       switch (sortField) {
         case "date":
-          comparison = new Date(a.date).getTime() - new Date(b.date).getTime();
+          comparison = new Date(b.date).getTime() - new Date(a.date).getTime();
           break;
         case "amount":
           comparison = a.amount - b.amount;
@@ -78,18 +83,34 @@ export function ExpenseTable({ expenses, onDelete, onUpdate }: ExpenseTableProps
     return result;
   }, [expenses, searchQuery, sortField, sortOrder]);
 
+  // Pagination
+  const totalPages = Math.ceil(filteredAndSortedExpenses.length / ITEMS_PER_PAGE);
+  const paginatedExpenses = filteredAndSortedExpenses.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   return (
     <div className="rounded-lg border bg-card">
       <div className="p-4 space-y-4">
-        <h2 className="text-lg font-semibold">Recent Expenses</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg font-semibold">Recent Expenses</h2>
+          <Link href="/analytics" className="relative inline-flex items-center justify-center px-4 py-2 font-semibold text-white transition-all duration-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-md hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 group">
+            <span className="absolute -inset-px bg-gradient-to-r from-[rgba(255,255,255,0.2)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-md" />
+            Chat with your data
+          </Link>
+        </div>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search expenses..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-md border border-input pl-9 pr-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1); // Reset to first page when searching
+            }}
+            className="w-full rounded-md border border-input bg-background px-4 pl-9 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
         </div>
       </div>
@@ -129,7 +150,7 @@ export function ExpenseTable({ expenses, onDelete, onUpdate }: ExpenseTableProps
             </tr>
           </thead>
           <tbody className="divide-y">
-            {filteredAndSortedExpenses.map((expense) => (
+            {paginatedExpenses.map((expense) => (
               <tr key={expense.id} className="hover:bg-muted/50">
                 <td className="px-4 py-3">
                   {editingId === expense.id ? (
@@ -207,6 +228,33 @@ export function ExpenseTable({ expenses, onDelete, onUpdate }: ExpenseTableProps
           </tbody>
         </table>
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between px-4 py-3 border-t">
+          <p className="text-sm text-muted-foreground">
+            Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredAndSortedExpenses.length)} of {filteredAndSortedExpenses.length} expenses
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+              className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <span className="text-sm">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+              className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,46 +1,54 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
-import { LogOut } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { LayoutDashboard, BarChart2, User } from "lucide-react";
 
 export function DashboardNav() {
+  const pathname = usePathname();
+
+  const navItems = [
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+      icon: LayoutDashboard
+    },
+    {
+      title: "Analytics",
+      href: "/analytics",
+      icon: BarChart2
+    },
+    {
+      title: "Profile",
+      href: "/profile",
+      icon: User
+    }
+  ];
+
   return (
-    <nav className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
-        <div className="flex items-center gap-8 text-sm">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <Image 
-              src="/logo.svg" 
-              alt="Expense AI Logo" 
-              width={32} 
-              height={32} 
-              className="h-8 w-8"
-            />
-            <span className="text-lg font-semibold">Expense AI</span>
-          </Link>
-          <Link 
-            href="/dashboard" 
-            className="text-md transition-colors hover:text-primary"
-          >
-            Dashboard
-          </Link>
-          <Link 
-            href="/dashboard/analytics" 
-            className="text-md transition-colors hover:text-primary"
-          >
-            Analytics
-          </Link>
-          <Link 
-            href="/dashboard/profile" 
-            className="text-md transition-colors hover:text-primary"
-          >
-            Profile
-          </Link>
-        </div>
-        <div className="flex flex-1 items-center justify-end">
-          <button className="flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent">
-            <LogOut className="h-4 w-4" />
-            Logout
-          </button>
+    <nav className="border-b bg-card">
+      <div className="container flex h-16 items-center px-4">
+        <Link href="/" className="mr-8">
+          <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            Expense AI
+          </h1>
+        </Link>
+        <div className="flex items-center space-x-4">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground ${isActive ? "bg-accent text-accent-foreground" : "text-muted-foreground"
+                  }`}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{item.title}</span>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>
