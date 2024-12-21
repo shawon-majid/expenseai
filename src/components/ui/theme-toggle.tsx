@@ -7,7 +7,7 @@ import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-interface ThemeToggleProps extends React.HTMLAttributes<HTMLButtonElement> {}
+type ThemeToggleProps = React.HTMLAttributes<HTMLButtonElement>
 
 export function ThemeToggle({ className, ...props }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme()

@@ -42,7 +42,7 @@ export function ExpenseInput({ onSubmit, isProcessing }: ExpenseInputProps) {
             className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
             title="Upload expense memo"
           >
-            <Image className="h-4 w-4" />
+            <Image className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       </div>
