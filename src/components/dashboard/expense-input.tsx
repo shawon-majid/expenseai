@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Loader2 } from "lucide-react";
+import { Send, Loader2, Mic, Image } from "lucide-react";
 
 interface ExpenseInputProps {
   onSubmit: (text: string) => Promise<void>;
@@ -29,6 +29,22 @@ export function ExpenseInput({ onSubmit, isProcessing }: ExpenseInputProps) {
           className="min-h-[100px] w-full rounded-lg border border-input bg-background px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
           disabled={isProcessing}
         />
+        <div className="absolute bottom-3 right-3 flex gap-2">
+          <button
+            type="button"
+            className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+            title="Add expense by voice"
+          >
+            <Mic className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+            title="Upload expense memo"
+          >
+            <Image className="h-4 w-4" />
+          </button>
+        </div>
       </div>
       <button
         type="submit"

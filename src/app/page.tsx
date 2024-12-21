@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function Home() {
   return (
@@ -10,6 +11,9 @@ export default function Home() {
             <Link className="mr-6 flex items-center space-x-2" href="/">
               <span className="hidden font-bold sm:inline-block">Expense AI</span>
             </Link>
+          </div>
+          <div className="flex flex-1 items-center justify-end space-x-2 px-4 lg:px-8">
+            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -51,7 +55,7 @@ export default function Home() {
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-            <div className="relative overflow-hidden rounded-lg border bg-card p-2 transition-all hover:shadow-lg">
+            <div className="relative overflow-hidden rounded-lg border bg-card p-2 transition-all hover:shadow-2xl hover:-translate-y-1 hover:border-primary/50 duration-300">
               <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
                 <div className="space-y-2">
                   <h3 className="font-bold">Natural Language Input</h3>
@@ -61,7 +65,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-lg border bg-card p-2 transition-all hover:shadow-lg">
+            <div className="relative overflow-hidden rounded-lg border bg-card p-2 transition-all hover:shadow-2xl hover:-translate-y-1 hover:border-primary/50 duration-300">
               <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
                 <div className="space-y-2">
                   <h3 className="font-bold">Smart Categorization</h3>
@@ -71,7 +75,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-lg border bg-card p-2 transition-all hover:shadow-lg">
+            <div className="relative overflow-hidden rounded-lg border bg-card p-2 transition-all hover:shadow-2xl hover:-translate-y-1 hover:border-primary/50 duration-300">
               <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
                 <div className="space-y-2">
                   <h3 className="font-bold">Insightful Analytics</h3>
